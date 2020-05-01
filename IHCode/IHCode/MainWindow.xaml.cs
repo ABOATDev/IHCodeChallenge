@@ -22,7 +22,27 @@ namespace IHCode
     {
         public MainWindow()
         {
+
             InitializeComponent();
+
+            InitializeColors();
+
         }
+
+        public void InitializeColors()
+        {
+
+            this.codeBox.Background = UsefulColors.DARK_BACKROUND.GetBrush();
+            this.codeBox.Foreground = UsefulColors.BRIGHT_CODE_COLOR.GetBrush();
+
+            this.Background         = UsefulColors.DARKER_BACKGROUND.GetBrush();
+
+            this.openButton.Background = UsefulColors.FILE_BUTTONS_COLOR.GetBrush();
+            this.saveButton.Background = UsefulColors.FILE_BUTTONS_COLOR.GetBrush();
+
+            this.fileList.Background = UsefulColors.FILE_BUTTONS_COLOR.GetBrush();
+
+        }
+
     }
 }
