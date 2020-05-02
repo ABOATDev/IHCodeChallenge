@@ -56,6 +56,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="FileManager.cs" />
+    <Compile Include="InputBox.cs" />
     <Compile Include="UsefulColors.cs" />
     <Compile Include="UserInteractions.cs" />
     <Page Include="MainWindow.xaml">

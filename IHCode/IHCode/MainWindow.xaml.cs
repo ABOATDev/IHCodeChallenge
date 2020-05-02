@@ -255,9 +255,19 @@ namespace IHCode
 
         private void Rename_Click(object sender, RoutedEventArgs e)
         {
-            //Renommé le fichier
-
+            string oldfilename = System.IO.Path.GetFileName(GetCurrentFilePath());
+            string path = System.IO.Path.GetDirectoryName(GetCurrentFilePath())+ @"\";
+            string newfilename = new InputBox("rename file : (+ extension)").ShowDialog();
+                //Renommé le fichier
+                if (fileManager.RenameFile(path, oldfilename, newfilename)) 
+                {
+                fileList.Items[fileList.SelectedIndex] = newfilename;
+                DisplayInformation("File renamed !.", MainWindow.InformationType.SUCCESS); 
+                }
+                else
+                { DisplayInformation("Could not rename file.", InformationType.ERROR); }
         }
+
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
