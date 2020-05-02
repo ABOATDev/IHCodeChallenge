@@ -66,10 +66,20 @@ namespace IHCode
         }
 
 
-        public bool RenameFile(string filename, string newfilename)
+        public bool RenameFile(string patchfile, string oldfilename, string newfilename)
         {
-            //File.Rename("C:\MonFichier.txt", "C:\MonFichierRenommer.txt");
-            //return true;
+            bool etat = false;
+            try
+            {
+                if (File.Exists(patchfile+ newfilename))  { etat = false;}
+                else
+                {
+                    File.Move(@"" + patchfile + oldfilename, @"" + patchfile + newfilename);
+                    etat = true;
+                }
+                return etat;
+            }
+            catch { return etat; }
         }
 
 
