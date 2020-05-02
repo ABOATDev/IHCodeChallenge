@@ -234,8 +234,6 @@ namespace IHCode
 
         }
 
-
-
         private void OnOpOnOpened(object sender, RoutedEventArgs e)
         {
             if (fileList.SelectedIndex == -1)
