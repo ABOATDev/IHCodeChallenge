@@ -260,7 +260,7 @@ namespace IHCode
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
             //Delete le fichier
-            if (fileManager.DeleteFile(GetCurrentFilePath()))
+            if (fileManager.DeleteFile(GetCurrentCodeFile().FullPath))
             {
                 //Enlever de la liste
                 fileList.Items.Remove(fileList.SelectedItem);
@@ -284,7 +284,7 @@ namespace IHCode
             foreach (string file in files)
             {
                 fileList.Items.Add(System.IO.Path.GetFileName(file));
-                fileManager.Files.Add(System.IO.Path.GetFileName(file));
+                fileManager.Files.Add(new CodeFile(file));
             }
 
 
