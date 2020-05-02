@@ -116,6 +116,7 @@ namespace IHCode
                     break;
             }
 
+
             infoTextBlock.Text = message;
 
             ClearInfoTextAsync(2000);
