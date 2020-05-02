@@ -46,16 +46,14 @@
             </FlowDocument>
         </RichTextBox>
 
-        
 
-        <ListBox x:Name="fileList" SelectionMode="Single" BorderThickness="0" Margin="0,10,0,0" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="3" SelectionChanged="OpenLoadedFile">
+
+        <ListBox x:Name="fileList" SelectionMode="Single" BorderThickness="0" Margin="0,10,0,0" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="3" SelectionChanged="OpenLoadedFile" Drop="fileList_Drop" AllowDrop="True">
             <ListBox.ContextMenu>
                 <ContextMenu Name="cm" Loaded="OnOpOnOpened">
                     <MenuItem  Header="Remove" Click="remove_Click"/>
                     <MenuItem Name="Rename"  Header="Rename" Click="Rename_Click"/>
                     <MenuItem Name="Delete" Header="Delete" Click="Delete_Click"/>
-                    <Separator />
-                    <MenuItem Header="Menu item 3" />
                 </ContextMenu>
             </ListBox.ContextMenu>
 

@@ -82,13 +82,23 @@ namespace IHCode
             catch { return etat; }
         }
 
+        public bool DeleteFile(string filename)
+        {
+            bool etat = false;
+            try
+            {
+               File.Delete(@"" + filename);
+               etat = true;
+              return etat;
+            }
+            catch { return etat; }
+        }
 
 
     }
 
     static class Constants
     {
-
         public static string JAVASCRIPT_FILE_SEARCH_PATTERN = "*.js";
 
     }

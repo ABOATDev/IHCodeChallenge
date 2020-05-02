@@ -143,7 +143,7 @@ namespace IHCode
 
             if (success) {
 
-                DisplayInformation("File saved.", MainWindow.InformationType.SUCCESS);
+                DisplayInformation("File saved.", InformationType.SUCCESS);
 
             } else {
 
@@ -234,8 +234,6 @@ namespace IHCode
 
         }
 
-
-
         private void OnOpOnOpened(object sender, RoutedEventArgs e)
         {
             if (fileList.SelectedIndex == -1)
@@ -270,10 +268,37 @@ namespace IHCode
                 { DisplayInformation("Could not rename file.", InformationType.ERROR); }
         }
 
-
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
             //Delete le fichier
+            if (fileManager.DeleteFile(GetCurrentFilePath()))
+            {
+                //Enlever de la liste
+                fileList.Items.Remove(fileList.SelectedItem);
+                SetCodeBoxContent("");
+                DisplayInformation("File renamed !.", MainWindow.InformationType.SUCCESS);
+            }
+            else
+            {
+                DisplayInformation("Could not delete file.", InformationType.ERROR);
+            }
+
+
+        }
+
+        private void fileList_Drop(object sender, DragEventArgs e)
+        {
+           
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+
+
+            foreach (string file in files)
+            {
+                fileList.Items.Add(System.IO.Path.GetFileName(file));
+                fileManager.Files.Add(System.IO.Path.GetFileName(file));
+            }
+
+
         }
     }
 }
