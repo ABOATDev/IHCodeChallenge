@@ -286,8 +286,25 @@ namespace IHCode
 
             foreach (string file in files)
             {
-                fileList.Items.Add(System.IO.Path.GetFileName(file));
-                fileManager.AddFile(file);
+                bool fileexistbool = false;
+                foreach (string fileexist in fileList.Items)
+                {
+                    if(fileexist == System.IO.Path.GetFileName(file))
+                    {
+                        fileexistbool = true;
+                        DisplayInformation("File exist !.", MainWindow.InformationType.ERROR);
+                    }
+                }
+
+
+                if(fileexistbool==false)
+                {
+                    fileList.Items.Add(System.IO.Path.GetFileName(file));
+                    fileManager.AddFile(file);
+                }
+
+
+
             }
 
         }

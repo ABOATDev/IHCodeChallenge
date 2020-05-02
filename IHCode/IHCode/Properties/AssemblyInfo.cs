@@ -8,9 +8,9 @@ using System.Windows;
 // l'ensemble d'attributs suivant. Pour modifier les informations
 // associées à un assembly.
 [assembly: AssemblyTitle("IHCode")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Instant Hack Code | Challenge https://instant-hack.to/threads/un-concours-prog.150487/")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("ABOAT | GOYA")]
 [assembly: AssemblyProduct("IHCode")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
