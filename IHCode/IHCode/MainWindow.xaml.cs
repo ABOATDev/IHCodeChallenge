@@ -155,7 +155,7 @@ namespace IHCode
 
         private string GetCurrentFilePath()
         {
-
+            
             if (fileList.SelectedIndex == -1 || String.IsNullOrEmpty(fileManager.CurrentDirectory))
             {
                 return string.Empty;
@@ -210,6 +210,25 @@ namespace IHCode
                 this.infoTextBlock.Dispatcher.Invoke(() => this.infoTextBlock.Text = string.Empty);
 
             });
+
+        }
+
+        private void PotentialSaveEvent(object sender, KeyEventArgs e)
+        {
+
+            if (!Keyboard.IsKeyDown(Key.LeftCtrl))
+            {
+
+                return;
+
+            }
+
+            if (e.Key == Key.S)
+            {
+
+                SaveFile(null, null);
+
+            }
 
         }
 
