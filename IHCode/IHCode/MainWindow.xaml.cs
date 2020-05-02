@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -118,6 +119,8 @@ namespace IHCode
 
             infoTextBlock.Text = message;
 
+            ClearInfoTextAsync(2000);
+
         }
 
         public enum InformationType
@@ -152,6 +155,11 @@ namespace IHCode
 
         private string GetCurrentFilePath()
         {
+
+            if (fileList.SelectedIndex == -1 || String.IsNullOrEmpty(fileManager.CurrentDirectory))
+            {
+                return string.Empty;
+            }
 
             return fileManager.CurrentDirectory + System.IO.Path.DirectorySeparatorChar + fileList.SelectedItem.ToString();
 
@@ -189,6 +197,19 @@ namespace IHCode
             string text = System.IO.File.ReadAllText(path);
 
             SetCodeBoxContent(text);
+
+        }
+
+        private void ClearInfoTextAsync(int delay)
+        {
+
+            Task.Run(() => {
+
+                Thread.Sleep(delay);
+
+                this.infoTextBlock.Dispatcher.Invoke(() => this.infoTextBlock.Text = string.Empty);
+
+            });
 
         }
 

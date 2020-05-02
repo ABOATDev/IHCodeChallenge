@@ -41,7 +41,7 @@
 
         <ListBox x:Name="fileList" SelectionMode="Single" BorderThickness="0" Margin="0,10,0,0" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="3" SelectionChanged="OpenLoadedFile"></ListBox>
 
-        <TextBlock x:Name="infoTextBlock" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="5"></TextBlock>
+        <TextBlock x:Name="infoTextBlock" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="5" Grid.RowSpan="2" VerticalAlignment="Center" TextAlignment="Left"></TextBlock>
         
     </Grid>
     
