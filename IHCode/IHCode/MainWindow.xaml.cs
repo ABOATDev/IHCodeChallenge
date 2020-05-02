@@ -178,11 +178,14 @@ namespace IHCode
 
         private void OpenLoadedFile(object sender, SelectionChangedEventArgs e)
         {
+
             if (fileList.SelectedIndex != -1)
             {
                 string path = GetCurrentCodeFile().FullPath;
                 string text = System.IO.File.ReadAllText(path);
+
                 SetCodeBoxContent(text);
+
             }
             
 
@@ -280,13 +283,11 @@ namespace IHCode
            
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
 
-
             foreach (string file in files)
             {
                 fileList.Items.Add(System.IO.Path.GetFileName(file));
-                fileManager.Files.Add(new CodeFile(file));
+                fileManager.AddFile(file);
             }
-
 
         }
 

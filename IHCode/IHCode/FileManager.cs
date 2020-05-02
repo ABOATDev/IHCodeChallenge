@@ -13,6 +13,20 @@ namespace IHCode
 
         public List<CodeFile> Files { get; } = new List<CodeFile>();
 
+        public void AddFile(string fileName)
+        {
+
+            if (Files.Where(f => f.FullPath == fileName).Any())
+            {
+
+                return;
+
+            }
+
+            Files.Add(new CodeFile(fileName));
+
+        }
+
         public bool OpenDirectory(string directory)
         {
 
@@ -35,7 +49,7 @@ namespace IHCode
             foreach (string fileName in files)
             {
 
-                Files.Add(new CodeFile(fileName));
+                AddFile(fileName);
 
             }
 
