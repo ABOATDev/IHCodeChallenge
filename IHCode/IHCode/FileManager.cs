@@ -65,6 +65,15 @@ namespace IHCode
 
         }
 
+
+        public bool RenameFile(string filename, string newfilename)
+        {
+            //File.Rename("C:\MonFichier.txt", "C:\MonFichierRenommer.txt");
+            //return true;
+        }
+
+
+
     }
 
     static class Constants
