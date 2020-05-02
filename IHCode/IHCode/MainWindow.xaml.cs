@@ -24,6 +24,9 @@ namespace IHCode
 
         private FileManager fileManager = new FileManager();
 
+        private SavedState SaveState = SavedState.Unsaved;
+
+
         public MainWindow()
         {
 
@@ -57,8 +60,6 @@ namespace IHCode
             if (succesfullyOpened)
             {
 
-                fileManager.CurrentDirectory = selectedDirectory;
-
                 UpdateFileList();
 
                 this.DisplayInformation("Succesfully opened workspace files.", InformationType.SUCCESS);
@@ -79,12 +80,10 @@ namespace IHCode
 
             this.fileList.Items.Clear();
 
-            foreach (string filePath in fileManager.Files)
+            foreach (CodeFile codeFile in fileManager.Files)
             {
 
-                string cleanName = System.IO.Path.GetFileName(filePath);
-
-                this.fileList.Items.Add(cleanName);
+                this.fileList.Items.Add(codeFile.FriendlyName);
 
             }
 
@@ -123,20 +122,10 @@ namespace IHCode
 
         }
 
-        public enum InformationType
-        {
-
-            ERROR,
-            INFO,
-            WARNING,
-            SUCCESS
-
-        }
-
         private void SaveFile(object sender, RoutedEventArgs e)
         {
 
-            string filePath = GetCurrentFilePath();
+            string filePath = GetCurrentCodeFile().FullPath;
             string content = GetCodeBoxContent();
 
             bool success = fileManager.SaveFile(filePath, content);
@@ -144,6 +133,8 @@ namespace IHCode
             if (success) {
 
                 DisplayInformation("File saved.", MainWindow.InformationType.SUCCESS);
+
+                SetFileSavedState(SavedState.Saved);
 
             } else {
 
@@ -153,15 +144,10 @@ namespace IHCode
 
         }
 
-        private string GetCurrentFilePath()
+        public CodeFile GetCurrentCodeFile()
         {
-            
-            if (fileList.SelectedIndex == -1 || String.IsNullOrEmpty(fileManager.CurrentDirectory))
-            {
-                return string.Empty;
-            }
 
-            return fileManager.CurrentDirectory + System.IO.Path.DirectorySeparatorChar + fileList.SelectedItem.ToString();
+            return fileManager.Files.Where(c => c.FriendlyName == this.fileList.SelectedItem.ToString()).FirstOrDefault();
 
         }
 
@@ -194,7 +180,7 @@ namespace IHCode
         {
             if (fileList.SelectedIndex != -1)
             {
-                string path = GetCurrentFilePath();
+                string path = GetCurrentCodeFile().FullPath;
                 string text = System.IO.File.ReadAllText(path);
                 SetCodeBoxContent(text);
             }
@@ -250,22 +236,25 @@ namespace IHCode
         {
             //Enlever de la liste
             fileList.Items.Remove(fileList.SelectedItem);
-            SetCodeBoxContent("");
+            SetCodeBoxContent(string.Empty);
         }
 
         private void Rename_Click(object sender, RoutedEventArgs e)
         {
-            string oldfilename = System.IO.Path.GetFileName(GetCurrentFilePath());
-            string path = System.IO.Path.GetDirectoryName(GetCurrentFilePath())+ @"\";
+            string oldfilename = System.IO.Path.GetFileName(GetCurrentCodeFile().FullPath);
+            string path = System.IO.Path.GetDirectoryName(GetCurrentCodeFile().FullPath)+ @"\";
             string newfilename = new InputBox("rename file : (+ extension)").ShowDialog();
+
                 //Renommé le fichier
                 if (fileManager.RenameFile(path, oldfilename, newfilename)) 
                 {
                 fileList.Items[fileList.SelectedIndex] = newfilename;
-                DisplayInformation("File renamed !.", MainWindow.InformationType.SUCCESS); 
+                DisplayInformation("File renamed.", MainWindow.InformationType.SUCCESS); 
                 }
                 else
-                { DisplayInformation("Could not rename file.", InformationType.ERROR); }
+                {
+                DisplayInformation("Could not rename file.", InformationType.ERROR);
+            }
         }
 
 
@@ -273,5 +262,54 @@ namespace IHCode
         {
             //Delete le fichier
         }
+
+        private void SetFileSavedState(SavedState state)
+        {
+
+            this.SaveState = state;
+
+            string title = GetCurrentCodeFile().FullPath;
+
+            if (state == SavedState.Unsaved)
+            {
+
+                title += "*";
+
+            }
+
+            this.Title = title;
+
+        }
+
+        private void CodeModified(object sender, TextChangedEventArgs e)
+        {
+
+            if (SaveState != SavedState.Unsaved)
+            {
+
+                SetFileSavedState(SavedState.Unsaved);
+
+            }
+
+        }
+
+        public enum SavedState
+        {
+
+            Saved,
+            Unsaved
+
+        }
+
+        public enum InformationType
+        {
+
+            ERROR,
+            INFO,
+            WARNING,
+            SUCCESS
+
+        }
+
     }
 }

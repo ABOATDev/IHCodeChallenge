@@ -11,9 +11,7 @@ namespace IHCode
     public class FileManager
     {
 
-        public List<string> Files { get; } = new List<string>();
-
-        public string CurrentDirectory { get; set; } = string.Empty;
+        public List<CodeFile> Files { get; } = new List<CodeFile>();
 
         public bool OpenDirectory(string directory)
         {
@@ -34,7 +32,12 @@ namespace IHCode
 
             }
 
-            Files.AddRange(files);
+            foreach (string fileName in files)
+            {
+
+                Files.Add(new CodeFile(fileName));
+
+            }
 
             return true;
 
@@ -65,7 +68,6 @@ namespace IHCode
 
         }
 
-
         public bool RenameFile(string patchfile, string oldfilename, string newfilename)
         {
             bool etat = false;
@@ -82,7 +84,21 @@ namespace IHCode
             catch { return etat; }
         }
 
+    }
 
+    public class CodeFile
+    {
+
+        public CodeFile(string filePath)
+        {
+
+            this.FullPath = filePath;
+
+        }
+
+        public string FullPath { get; set; } = string.Empty;
+
+        public string FriendlyName { get => System.IO.Path.GetFileName(FullPath); }
 
     }
 

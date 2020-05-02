@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IHCode"
         mc:Ignorable="d"
-        Title="IH Code Editor" Height="450" Width="800"
+        Title="" Height="450" Width="800"
         FontFamily="Segoe UI Light"
         FontSize="16">
 
@@ -38,7 +38,7 @@
 
         <Button x:Name="saveButton" BorderThickness="0" Grid.Column="3" Grid.Row="1" Content="Save" Click="SaveFile"></Button>
 
-        <RichTextBox x:Name="codeBox" BorderThickness="0" Grid.Column="5" Grid.Row="1" Grid.RowSpan="2" PreviewKeyUp="PotentialSaveEvent">
+        <RichTextBox x:Name="codeBox" BorderThickness="0" Grid.Column="5" Grid.Row="1" Grid.RowSpan="2" PreviewKeyUp="PotentialSaveEvent" TextChanged="CodeModified">
             <FlowDocument>
                 <Paragraph>
                     <Run Text=""/>
