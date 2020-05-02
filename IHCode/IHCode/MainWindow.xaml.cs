@@ -192,11 +192,13 @@ namespace IHCode
 
         private void OpenLoadedFile(object sender, SelectionChangedEventArgs e)
         {
-
-            string path = GetCurrentFilePath();
-            string text = System.IO.File.ReadAllText(path);
-
-            SetCodeBoxContent(text);
+            if (fileList.SelectedIndex != -1)
+            {
+                string path = GetCurrentFilePath();
+                string text = System.IO.File.ReadAllText(path);
+                SetCodeBoxContent(text);
+            }
+            
 
         }
 
@@ -232,5 +234,36 @@ namespace IHCode
 
         }
 
+
+
+        private void OnOpOnOpened(object sender, RoutedEventArgs e)
+        {
+            if (fileList.SelectedIndex == -1)
+            {
+                cm.IsOpen = false;
+            }
+            else
+            {
+                cm.IsOpen = true;
+            }
+        }
+
+        private void remove_Click(object sender, RoutedEventArgs e)
+        {
+            //Enlever de la liste
+            fileList.Items.Remove(fileList.SelectedItem);
+            SetCodeBoxContent("");
+        }
+
+        private void Rename_Click(object sender, RoutedEventArgs e)
+        {
+            //Renommé le fichier
+
+        }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            //Delete le fichier
+        }
     }
 }
