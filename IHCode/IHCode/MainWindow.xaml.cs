@@ -132,7 +132,7 @@ namespace IHCode
 
             if (success) {
 
-                DisplayInformation("File saved.", MainWindow.InformationType.SUCCESS);
+                DisplayInformation("File saved.", InformationType.SUCCESS);
 
                 SetFileSavedState(SavedState.Saved);
 
@@ -257,10 +257,37 @@ namespace IHCode
             }
         }
 
-
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
             //Delete le fichier
+            if (fileManager.DeleteFile(GetCurrentFilePath()))
+            {
+                //Enlever de la liste
+                fileList.Items.Remove(fileList.SelectedItem);
+                SetCodeBoxContent("");
+                DisplayInformation("File renamed !.", MainWindow.InformationType.SUCCESS);
+            }
+            else
+            {
+                DisplayInformation("Could not delete file.", InformationType.ERROR);
+            }
+
+
+        }
+
+        private void fileList_Drop(object sender, DragEventArgs e)
+        {
+           
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+
+
+            foreach (string file in files)
+            {
+                fileList.Items.Add(System.IO.Path.GetFileName(file));
+                fileManager.Files.Add(System.IO.Path.GetFileName(file));
+            }
+
+
         }
 
         private void SetFileSavedState(SavedState state)
