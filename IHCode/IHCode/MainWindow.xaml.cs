@@ -191,10 +191,11 @@ namespace IHCode
                 string text = System.IO.File.ReadAllText(path);
 
                 SetCodeBoxContent(text);
-
+                infoTextFile.Text = fileManager.InfoFile(path);
             }
             
         }
+
 
         private void ClearInfoTextAsync(int delay)
         {

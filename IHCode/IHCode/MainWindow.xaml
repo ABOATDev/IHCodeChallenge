@@ -22,11 +22,11 @@
             <ColumnDefinition Width="10"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="10"></ColumnDefinition>
-            
+
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            
+
             <RowDefinition Height="10"></RowDefinition>
             <RowDefinition Height="25"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
@@ -61,8 +61,9 @@
 
         </ListBox>
 
-        <TextBlock x:Name="infoTextBlock" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="5" Grid.RowSpan="2" VerticalAlignment="Center" TextAlignment="Left"></TextBlock>
-        
+        <TextBlock x:Name="infoTextBlock" Grid.Row="3" Grid.ColumnSpan="6" Grid.RowSpan="2" VerticalAlignment="Center" TextAlignment="Left" Margin="10,3.6,331,4"/>
+        <TextBlock x:Name="infoTextFile" Grid.Column="5" Grid.Row="2" VerticalAlignment="Center" TextAlignment="Left" Margin="430.6,354.8,10,8" Grid.RowSpan="3" />
+
     </Grid>
-    
+
 </Window>
