@@ -280,6 +280,7 @@ namespace IHCode
             fileManager.Files.Remove(GetCurrentCodeFile());
             SetCodeBoxContent(string.Empty);
             UpdateFileList();
+
         }
 
         private void Rename_Click(object sender, RoutedEventArgs e)

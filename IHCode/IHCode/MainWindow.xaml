@@ -68,7 +68,7 @@
         </ListBox>
 
         <TextBlock x:Name="infoTextBlock" Grid.Row="3" Grid.ColumnSpan="6" Grid.RowSpan="2" VerticalAlignment="Center" TextAlignment="Left" Margin="10,3.6,331,4"/>
-        <TextBlock x:Name="infoTextFile" Grid.Column="5" Grid.Row="2" VerticalAlignment="Center" TextAlignment="Left" Margin="430.6,354.8,10,8" Grid.RowSpan="3" />
+        <TextBlock x:Name="infoTextFile" Foreground="DarkOrange" Grid.Column="5" Grid.Row="3" VerticalAlignment="Center" TextAlignment="Left" Grid.RowSpan="3"/>
 
     </Grid>
 
