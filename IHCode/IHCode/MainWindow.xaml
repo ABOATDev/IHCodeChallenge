@@ -44,11 +44,14 @@
         Name="codeBox" FontFamily="Consolas" SyntaxHighlighting="JavaScript"
         FontSize="11pt"
         Grid.Column="5"
-        Grid.Row="2"
-            HorizontalScrollBarVisibility="Auto"
-            VerticalScrollBarVisibility="Auto"
-            BorderThickness="0.2"
-            BorderBrush="WhiteSmoke"/>
+        Grid.Row="1"
+        Grid.RowSpan="2"
+        HorizontalScrollBarVisibility="Auto"
+        VerticalScrollBarVisibility="Auto"
+        BorderThickness="0.2"
+        BorderBrush="WhiteSmoke" 
+        PreviewKeyDown="PotentialSaveEvent"
+        />
 
 
 

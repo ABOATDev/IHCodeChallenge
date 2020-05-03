@@ -26,11 +26,6 @@ namespace IHCode
 
         private FileManager fileManager = new FileManager();
 
-        private SavedState SaveState = SavedState.Unsaved;
-
-        private int LastSelectedIndex { get; set; } = -1;
-
-
         public MainWindow()
         {
 
@@ -128,16 +123,51 @@ namespace IHCode
         private void SaveFile(object sender, RoutedEventArgs e)
         {
 
-            string filePath = GetCurrentCodeFile().FullPath;
+            CodeFile file = GetCurrentCodeFile();
+
+            bool isNewFile = (file is null);
+
+            string filePath = string.Empty;
+
+            if (isNewFile)
+            {
+
+                MessageBoxResult result = MessageBox.Show("The file you are trying to save is not associated to any known file, save it to a new file ?", "Unknown file", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+                if (result == MessageBoxResult.Yes)
+                {
+
+                    filePath = UserInteractions.GetSaveFileDialogFilePath();
+
+                } else
+                {
+
+                    return;
+
+                }
+
+            } else
+            {
+
+                filePath = file.FullPath;
+
+            }
+
             string content = GetCodeBoxContent();
 
             bool success = fileManager.SaveFile(filePath, content);
 
             if (success) {
 
-                DisplayInformation("File saved.", InformationType.SUCCESS);
+                if (isNewFile)
+                {
 
-                SetFileSavedState(SavedState.Saved);
+                    fileManager.AddFile(filePath);
+                    UpdateFileList();
+
+                }
+
+                DisplayInformation("File saved.", InformationType.SUCCESS);
 
             } else {
 
@@ -150,7 +180,9 @@ namespace IHCode
         public CodeFile GetCurrentCodeFile()
         {
 
-            return fileManager.Files.Where(c => c.FriendlyName == this.fileList.SelectedItem.ToString()).FirstOrDefault();
+            if (this.fileList.SelectedIndex == -1) { return null; }
+
+            return fileManager.Files.Where(c => c.FriendlyName == fileList.SelectedItem.ToString()).FirstOrDefault();
 
         }
 
@@ -182,12 +214,13 @@ namespace IHCode
             if (selectedIndex != -1)
             {
 
-                LastSelectedIndex = fileList.SelectedIndex;
-
-                string path = GetCurrentCodeFile().FullPath;
+                CodeFile file = GetCurrentCodeFile();
+                string path = file.FullPath;
                 string text = System.IO.File.ReadAllText(path);
 
                 SetCodeBoxContent(text);
+
+                this.Title = GetCurrentCodeFile().FullPath;
 
             }
             
@@ -216,12 +249,14 @@ namespace IHCode
 
             }
 
+            e.Handled = true;
+
             if (e.Key == Key.S)
             {
 
                 SaveFile(null, null);
 
-            }
+            } 
 
         }
 
@@ -249,7 +284,10 @@ namespace IHCode
 
             string oldFileName = GetCurrentCodeFile().FullPath;
             string directory = System.IO.Path.GetDirectoryName(oldFileName);
-            string newFileName = directory + System.IO.Path.DirectorySeparatorChar + new IBox().ShowDialog("Set new file name :");
+            string fileName = new IBox().ShowDialog("Set new file name :");
+            string newFileName = directory + System.IO.Path.DirectorySeparatorChar + fileName;
+
+            if (String.IsNullOrEmpty(fileName)) { return; }
 
             if (!newFileName.EndsWith(".js"))
             {
@@ -284,9 +322,10 @@ namespace IHCode
             if (fileManager.DeleteFile(GetCurrentCodeFile().FullPath))
             {
                 //Enlever de la liste
-                fileList.Items.Remove(fileList.SelectedItem);
+                fileManager.Files.Remove(GetCurrentCodeFile());
                 SetCodeBoxContent(string.Empty);
                 DisplayInformation("File deleted.", MainWindow.InformationType.SUCCESS);
+                UpdateFileList();
             }
             else
             {
@@ -314,44 +353,6 @@ namespace IHCode
             }
 
             UpdateFileList();
-
-        }
-
-        private void SetFileSavedState(SavedState state)
-        {
-
-            this.SaveState = state;
-
-            string title = GetCurrentCodeFile().FullPath;
-
-            if (state == SavedState.Unsaved)
-            {
-
-                title += "*";
-
-            }
-
-            this.Title = title;
-
-        }
-
-        private void CodeModified(object sender, TextChangedEventArgs e)
-        {
-
-            if (SaveState != SavedState.Unsaved)
-            {
-
-                SetFileSavedState(SavedState.Unsaved);
-
-            }
-
-        }
-
-        public enum SavedState
-        {
-
-            Saved,
-            Unsaved
 
         }
 

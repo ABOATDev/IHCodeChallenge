@@ -13,6 +13,8 @@ namespace IHCode
 
         public List<CodeFile> Files { get; } = new List<CodeFile>();
 
+        public CodeFile CurrentFile { get; set; } = null;
+
         public bool AddFile(string fileName)
         {
 
@@ -62,21 +64,11 @@ namespace IHCode
         public bool SaveFile(string fileName, string content)
         {
 
-            if (!File.Exists(fileName))
-            {
-
-                return false;
-
-            }
-
             try
             {
 
                 // Ré-écriture du fichier
-                using (StreamWriter sr = new StreamWriter(fileName))
-                {
-                    sr.Write(content);
-                }
+                System.IO.File.WriteAllText(fileName, content);
 
             } catch { return false; }
 
