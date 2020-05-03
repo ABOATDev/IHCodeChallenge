@@ -16,6 +16,10 @@ using System.Windows.Shapes;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Document;
 
+using ICSharpCode.AvalonEdit.CodeCompletion;
+using ICSharpCode.AvalonEdit.Folding;
+using ICSharpCode.AvalonEdit.Highlighting;
+
 namespace IHCode
 {
 
@@ -30,6 +34,7 @@ namespace IHCode
             InitializeComponent();
 
             InitializeColors();
+            
 
         }
 
@@ -45,6 +50,8 @@ namespace IHCode
             this.saveButton.Background = UsefulColors.FILE_BUTTONS_COLOR.GetBrush();
 
             this.fileList.Background = UsefulColors.FILE_BUTTONS_COLOR.GetBrush();
+
+            
 
         }
 
@@ -202,6 +209,7 @@ namespace IHCode
 
             this.codeBox.Document = futureDocument;
 
+
         }
 
         private void OpenLoadedFile(object sender, SelectionChangedEventArgs e)
@@ -216,18 +224,22 @@ namespace IHCode
                 string path = file.FullPath;
                 string text = System.IO.File.ReadAllText(path);
 
+                //Changement de la coloration selon le langage
+                codeBox.SyntaxHighlighting = HighlightingManager.Instance.GetDefinitionByExtension(System.IO.Path.GetExtension(path));
+                codeBox.ShowLineNumbers = true;
+
                 SetCodeBoxContent(text);
-
                 this.Title = GetCurrentCodeFile().FullPath;
-
                 infoTextFile.Text = fileManager.InfoFile(path);
-                
             }
             
         }
 
         private void codeBox_TextChanged(object sender, EventArgs e)
         {
+            
+
+
             int selectedIndex = fileList.SelectedIndex;
 
             if (selectedIndex != -1)
