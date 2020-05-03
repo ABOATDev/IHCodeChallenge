@@ -39,13 +39,16 @@
 
         <Button x:Name="saveButton" BorderThickness="0" Grid.Column="3" Grid.Row="1" Content="Save" Click="SaveFile"></Button>
 
-        <RichTextBox x:Name="codeBox" BorderThickness="0" Grid.Column="5" Grid.Row="1" Grid.RowSpan="2" PreviewKeyUp="PotentialSaveEvent" TextChanged="CodeModified">
-            <FlowDocument>
-                <Paragraph>
-                    <Run Text=""/>
-                </Paragraph>
-            </FlowDocument>
-        </RichTextBox>
+        <avalonEdit:TextEditor
+        xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+        Name="codeBox" FontFamily="Consolas" SyntaxHighlighting="JavaScript"
+        FontSize="11pt"
+        Grid.Column="5"
+        Grid.Row="2"
+            HorizontalScrollBarVisibility="Auto"
+            VerticalScrollBarVisibility="Auto"
+            BorderThickness="0.2"
+            BorderBrush="WhiteSmoke"/>
 
 
 
