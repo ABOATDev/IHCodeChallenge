@@ -54,6 +54,11 @@ namespace IHCode
         {
 
             string selectedDirectory = UserInteractions.GetOpenFolderDialogResult();
+
+
+            MessageBox.Show(selectedDirectory);
+            //Environment.CurrentDirectory
+
             bool succesfullyOpened = fileManager.OpenDirectory(selectedDirectory);
 
             if (succesfullyOpened)
@@ -280,6 +285,7 @@ namespace IHCode
             fileManager.Files.Remove(GetCurrentCodeFile());
             SetCodeBoxContent(string.Empty);
             UpdateFileList();
+            this.Title = "Instant Hack Code";
         }
 
         private void Rename_Click(object sender, RoutedEventArgs e)
