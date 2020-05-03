@@ -51,6 +51,7 @@
         BorderThickness="0.2"
         BorderBrush="WhiteSmoke" 
         PreviewKeyDown="PotentialSaveEvent"
+        TextChanged="codeBox_TextChanged"
         />
 
 
@@ -61,6 +62,7 @@
                     <MenuItem  Header="Remove" Click="remove_Click"/>
                     <MenuItem Name="Rename"  Header="Rename" Click="Rename_Click"/>
                     <MenuItem Name="Delete" Header="Delete" Click="Delete_Click"/>
+                    <MenuItem Name="Save" Header="Save" Click="Save_Click"/>
                 </ContextMenu>
             </ListBox.ContextMenu>
 
@@ -68,8 +70,7 @@
         </ListBox>
 
         <TextBlock x:Name="infoTextBlock" Grid.Row="3" Grid.ColumnSpan="6" Grid.RowSpan="2" VerticalAlignment="Center" TextAlignment="Left" Margin="10,3.6,331,4"/>
-        <TextBlock x:Name="infoTextFile" Grid.Column="5" Grid.Row="2" VerticalAlignment="Center" TextAlignment="Left" Margin="430.6,354.8,10,8" Grid.RowSpan="3" />
-
+        <TextBlock x:Name="infoTextFile" Grid.Column="5" Grid.Row="2" VerticalAlignment="Center" TextAlignment="Left" FontSize="16" Foreground="Beige" Margin="430.6,354.8,10,8" Grid.RowSpan="3" />
     </Grid>
 
 </Window>
