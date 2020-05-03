@@ -167,7 +167,7 @@ namespace IHCode
                 }
 
                 DisplayInformation("File saved.", InformationType.SUCCESS);
-                this.Title = this.Title.Replace("*", "");
+                this.Title = this.Title.Replace("*", string.Empty);
             } else {
 
                 DisplayInformation("Could not save file.", InformationType.ERROR);
@@ -284,10 +284,10 @@ namespace IHCode
 
             }
 
-            e.Handled = true;
-
             if (e.Key == Key.S)
             {
+
+                e.Handled = true;
 
                 SaveFile(null, null);
 
