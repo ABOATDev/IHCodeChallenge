@@ -13,8 +13,6 @@ namespace IHCode
 
         public List<CodeFile> Files { get; } = new List<CodeFile>();
 
-        public CodeFile CurrentFile { get; set; } = null;
-
         public bool AddFile(string fileName)
         {
 

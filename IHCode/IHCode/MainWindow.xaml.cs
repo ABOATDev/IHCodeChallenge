@@ -228,7 +228,6 @@ namespace IHCode
             
         }
 
-
         private void ClearInfoTextAsync(int delay)
         {
 
@@ -278,8 +277,9 @@ namespace IHCode
         private void remove_Click(object sender, RoutedEventArgs e)
         {
             //Enlever de la liste
-            fileList.Items.Remove(fileList.SelectedItem);
+            fileManager.Files.Remove(GetCurrentCodeFile());
             SetCodeBoxContent(string.Empty);
+            UpdateFileList();
         }
 
         private void Rename_Click(object sender, RoutedEventArgs e)
