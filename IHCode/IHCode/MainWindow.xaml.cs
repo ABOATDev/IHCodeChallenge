@@ -222,9 +222,12 @@ namespace IHCode
 
                 this.Title = GetCurrentCodeFile().FullPath;
 
+                infoTextFile.Text = fileManager.InfoFile(path);
+                
             }
             
         }
+
 
         private void ClearInfoTextAsync(int delay)
         {
