@@ -18,9 +18,7 @@ using ICSharpCode.AvalonEdit.Document;
 
 namespace IHCode
 {
-    /// <summary>
-    /// Logique d'interaction pour MainWindow.xaml
-    /// </summary>
+
     public partial class MainWindow : Window
     {
 
@@ -168,6 +166,7 @@ namespace IHCode
 
                 DisplayInformation("File saved.", InformationType.SUCCESS);
                 this.Title = this.Title.Replace("*", string.Empty);
+
             } else {
 
                 DisplayInformation("Could not save file.", InformationType.ERROR);
@@ -235,6 +234,9 @@ namespace IHCode
             {
 
                 CodeFile file = GetCurrentCodeFile();
+
+                if (file is null) { this.infoTextFile.Text = string.Empty; return; }
+
                 string path = file.FullPath;
                 string textfile = System.IO.File.ReadAllText(path);
 
@@ -256,10 +258,6 @@ namespace IHCode
 
             }
         }
-
-
-
-
 
         private void ClearInfoTextAsync(int delay)
         {
@@ -403,22 +401,6 @@ namespace IHCode
         {
             SaveFile(sender, e);   //Ou SaveFile(null, null);
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     }
 }

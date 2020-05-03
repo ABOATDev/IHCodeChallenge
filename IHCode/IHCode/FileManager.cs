@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace IHCode
 {
@@ -68,7 +69,7 @@ namespace IHCode
                 // Ré-écriture du fichier
                 System.IO.File.WriteAllText(fileName, content);
 
-            } catch { return false; }
+            } catch (Exception ex) { MessageBox.Show(ex.Message); return false; }
 
             return true;
 
@@ -107,7 +108,6 @@ namespace IHCode
             catch { return etat; }
         }
 
-
         public string InfoFile(string patch)
         {
             string typefile = System.IO.Path.GetExtension(patch).ToUpper();
@@ -123,7 +123,7 @@ namespace IHCode
 
             FileStream file = new FileStream(CheminFichier, FileMode.Open, FileAccess.Read, FileShare.Read);
             if(file.CanSeek)
-            {
+            {   
                 byte[] bom = new byte[4]; // Get the byte-order mark, if there is one
                 file.Read(bom, 0, 4);
                 if (bom[0] == 0xef && bom[1] == 0xbb && bom[2] == 0xbf) // utf-8
@@ -158,6 +158,9 @@ namespace IHCode
 
                 enc = Encoding.Default.ToString();
             }
+
+            file.Close();
+            file.Dispose();
 
             return enc;
 
