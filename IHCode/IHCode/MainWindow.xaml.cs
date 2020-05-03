@@ -13,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ICSharpCode.AvalonEdit;
+using ICSharpCode.AvalonEdit.Document;
 
 namespace IHCode
 {
@@ -155,23 +157,18 @@ namespace IHCode
         private string GetCodeBoxContent()
         {
 
-            FlowDocument currentDocument = codeBox.Document;
+            TextDocument currentDocument = codeBox.Document;
 
-            TextPointer start = currentDocument.ContentStart;
-            TextPointer end = currentDocument.ContentEnd;
-
-            TextRange range = new TextRange(start, end);
-
-            return range.Text;
+            return currentDocument.Text;
 
         }
 
         private void SetCodeBoxContent(string text)
         {
 
-            FlowDocument futureDocument = new FlowDocument();
+            TextDocument futureDocument = new TextDocument();
 
-            futureDocument.Blocks.Add(new Paragraph(new Run(text)));
+            futureDocument.Text = text;
 
             this.codeBox.Document = futureDocument;
 
@@ -289,7 +286,7 @@ namespace IHCode
                 //Enlever de la liste
                 fileList.Items.Remove(fileList.SelectedItem);
                 SetCodeBoxContent(string.Empty);
-                DisplayInformation("File renamed.", MainWindow.InformationType.SUCCESS);
+                DisplayInformation("File deleted.", MainWindow.InformationType.SUCCESS);
             }
             else
             {
