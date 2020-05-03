@@ -158,7 +158,7 @@ namespace IHCode
 
                 enc = Encoding.Default.ToString();
             }
-
+            file.Close();
             return enc;
 
 
