@@ -15,6 +15,7 @@ namespace IHCode
 
             using (FolderBrowserDialog dialog = GetNewParametizedDialog())
             {
+                dialog.RootFolder = Environment.SpecialFolder.MyComputer;
 
                 bool success = (dialog.ShowDialog() == DialogResult.OK);
 

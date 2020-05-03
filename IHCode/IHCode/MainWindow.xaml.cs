@@ -52,7 +52,6 @@ namespace IHCode
 
         private void OpenFolder(object sender, RoutedEventArgs e)
         {
-
             string selectedDirectory = UserInteractions.GetOpenFolderDialogResult();
             bool succesfullyOpened = fileManager.OpenDirectory(selectedDirectory);
 
@@ -168,7 +167,7 @@ namespace IHCode
                 }
 
                 DisplayInformation("File saved.", InformationType.SUCCESS);
-
+                this.Title = this.Title.Replace("*", "");
             } else {
 
                 DisplayInformation("Could not save file.", InformationType.ERROR);
@@ -228,6 +227,40 @@ namespace IHCode
             
         }
 
+        private void codeBox_TextChanged(object sender, EventArgs e)
+        {
+            int selectedIndex = fileList.SelectedIndex;
+
+            if (selectedIndex != -1)
+            {
+
+                CodeFile file = GetCurrentCodeFile();
+                string path = file.FullPath;
+                string textfile = System.IO.File.ReadAllText(path);
+
+                if (GetCodeBoxContent().ToString() != textfile)
+                {
+                    if (Title.Substring(Title.Length - 1, 1) != "*")
+                    {
+                        Title += "*";
+                    }
+                }
+                else
+                {
+                    if (Title.Substring(Title.Length - 1, 1) == "*")
+                    {
+                        Title = Title.Replace("*", "");
+                    }
+                    
+                }
+
+            }
+        }
+
+
+
+
+
         private void ClearInfoTextAsync(int delay)
         {
 
@@ -280,7 +313,7 @@ namespace IHCode
             fileManager.Files.Remove(GetCurrentCodeFile());
             SetCodeBoxContent(string.Empty);
             UpdateFileList();
-
+            this.Title = "Instant Hack Code";
         }
 
         private void Rename_Click(object sender, RoutedEventArgs e)
@@ -355,20 +388,37 @@ namespace IHCode
                 }
 
             }
-
             UpdateFileList();
-
         }
 
         public enum InformationType
         {
-
             ERROR,
             INFO,
             WARNING,
             SUCCESS
-
         }
+
+        private void Save_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFile(sender, e);   //Ou SaveFile(null, null);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     }
 }
