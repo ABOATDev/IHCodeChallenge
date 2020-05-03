@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IHCode"
         mc:Ignorable="d"
-        Title="" Height="450" Width="800"
+        Title="Instant Hack Code" Height="450" Width="800"
         FontFamily="Segoe UI Light"
         FontSize="16"
         WindowStartupLocation="CenterScreen">
