@@ -8,7 +8,8 @@
         mc:Ignorable="d"
         Title="" Height="450" Width="800"
         FontFamily="Segoe UI Light"
-        FontSize="16">
+        FontSize="16"
+        WindowStartupLocation="CenterScreen">
 
     <Grid>
 

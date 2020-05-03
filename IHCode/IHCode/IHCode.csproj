@@ -59,9 +59,16 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="FileManager.cs" />
+    <Compile Include="IBox.xaml.cs">
+      <DependentUpon>IBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="InputBox.cs" />
     <Compile Include="UsefulColors.cs" />
     <Compile Include="UserInteractions.cs" />
+    <Page Include="IBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

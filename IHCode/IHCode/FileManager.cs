@@ -13,17 +13,19 @@ namespace IHCode
 
         public List<CodeFile> Files { get; } = new List<CodeFile>();
 
-        public void AddFile(string fileName)
+        public bool AddFile(string fileName)
         {
 
             if (Files.Where(f => f.FullPath == fileName).Any())
             {
 
-                return;
+                return false;
 
             }
 
             Files.Add(new CodeFile(fileName));
+
+            return true;
 
         }
 
@@ -82,20 +84,25 @@ namespace IHCode
 
         }
 
-        public bool RenameFile(string patchfile, string oldfilename, string newfilename)
+        public bool RenameFile(string oldFileName, string newFileName)
         {
-            bool etat = false;
+            
+            if (!File.Exists(oldFileName))
+            {
+
+                return false;
+
+            }
+
             try
             {
-                if (File.Exists(patchfile+ newfilename))  { etat = false;}
-                else
-                {
-                    File.Move(@"" + patchfile + oldfilename, @"" + patchfile + newfilename);
-                    etat = true;
-                }
-                return etat;
-            }
-            catch { return etat; }
+
+                File.Move(oldFileName, newFileName);
+
+            } catch { return false; }
+
+            return true;
+
         }
 
         public bool DeleteFile(string filename)

@@ -26,6 +26,8 @@ namespace IHCode
 
         private SavedState SaveState = SavedState.Unsaved;
 
+        private int LastSelectedIndex { get; set; } = -1;
+
 
         public MainWindow()
         {
@@ -70,8 +72,6 @@ namespace IHCode
                 this.DisplayInformation("Could not open workspace.", InformationType.ERROR);
 
             }
-
-
 
         }
 
@@ -180,8 +180,13 @@ namespace IHCode
         private void OpenLoadedFile(object sender, SelectionChangedEventArgs e)
         {
 
-            if (fileList.SelectedIndex != -1)
+            int selectedIndex = fileList.SelectedIndex;
+
+            if (selectedIndex != -1)
             {
+
+                LastSelectedIndex = fileList.SelectedIndex;
+
                 string path = GetCurrentCodeFile().FullPath;
                 string text = System.IO.File.ReadAllText(path);
 
@@ -189,7 +194,6 @@ namespace IHCode
 
             }
             
-
         }
 
         private void ClearInfoTextAsync(int delay)
@@ -245,20 +249,36 @@ namespace IHCode
 
         private void Rename_Click(object sender, RoutedEventArgs e)
         {
-            string oldfilename = System.IO.Path.GetFileName(GetCurrentCodeFile().FullPath);
-            string path = System.IO.Path.GetDirectoryName(GetCurrentCodeFile().FullPath)+ @"\";
-            string newfilename = new InputBox("rename file : (+ extension)").ShowDialog();
 
-                //Renommé le fichier
-                if (fileManager.RenameFile(path, oldfilename, newfilename)) 
-                {
-                fileList.Items[fileList.SelectedIndex] = newfilename;
-                DisplayInformation("File renamed.", MainWindow.InformationType.SUCCESS); 
-                }
-                else
-                {
+            string oldFileName = GetCurrentCodeFile().FullPath;
+            string directory = System.IO.Path.GetDirectoryName(oldFileName);
+            string newFileName = directory + System.IO.Path.DirectorySeparatorChar + new IBox().ShowDialog("Set new file name :");
+
+            if (!newFileName.EndsWith(".js"))
+            {
+
+                newFileName += ".js";
+
+            }
+
+            //Renommé le fichier
+            if (fileManager.RenameFile(oldFileName, newFileName)) 
+            {
+
+                fileManager.Files.RemoveAt(fileList.SelectedIndex);
+
+                fileManager.AddFile(newFileName);
+
+                DisplayInformation("File renamed.", InformationType.SUCCESS); 
+
+            }
+            else
+            {
                 DisplayInformation("Could not rename file.", InformationType.ERROR);
             }
+
+            UpdateFileList();
+
         }
 
         private void Delete_Click(object sender, RoutedEventArgs e)
@@ -268,8 +288,8 @@ namespace IHCode
             {
                 //Enlever de la liste
                 fileList.Items.Remove(fileList.SelectedItem);
-                SetCodeBoxContent("");
-                DisplayInformation("File renamed !.", MainWindow.InformationType.SUCCESS);
+                SetCodeBoxContent(string.Empty);
+                DisplayInformation("File renamed.", MainWindow.InformationType.SUCCESS);
             }
             else
             {
@@ -286,26 +306,17 @@ namespace IHCode
 
             foreach (string file in files)
             {
-                bool fileexistbool = false;
-                foreach (string fileexist in fileList.Items)
+
+                if (!fileManager.AddFile(file))
                 {
-                    if(fileexist == System.IO.Path.GetFileName(file))
-                    {
-                        fileexistbool = true;
-                        DisplayInformation("File exist !.", MainWindow.InformationType.ERROR);
-                    }
+
+                    DisplayInformation("File " + file + " already exists.", InformationType.WARNING);
+
                 }
-
-
-                if(fileexistbool==false)
-                {
-                    fileList.Items.Add(System.IO.Path.GetFileName(file));
-                    fileManager.AddFile(file);
-                }
-
-
 
             }
+
+            UpdateFileList();
 
         }
 
