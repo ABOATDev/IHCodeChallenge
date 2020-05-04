@@ -15,9 +15,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Document;
-
-using ICSharpCode.AvalonEdit.CodeCompletion;
-using ICSharpCode.AvalonEdit.Folding;
 using ICSharpCode.AvalonEdit.Highlighting;
 
 namespace IHCode
@@ -43,15 +40,10 @@ namespace IHCode
 
             this.codeBox.Background = UsefulColors.DARK_BACKROUND.GetBrush();
             this.codeBox.Foreground = UsefulColors.BRIGHT_CODE_COLOR.GetBrush();
-
             this.Background         = UsefulColors.DARKER_BACKGROUND.GetBrush();
-
             this.openButton.Background = UsefulColors.FILE_BUTTONS_COLOR.GetBrush();
             this.saveButton.Background = UsefulColors.FILE_BUTTONS_COLOR.GetBrush();
-
             this.fileList.Background = UsefulColors.FILE_BUTTONS_COLOR.GetBrush();
-
-            
 
         }
 
@@ -239,8 +231,6 @@ namespace IHCode
         private void codeBox_TextChanged(object sender, EventArgs e)
         {
             
-
-
             int selectedIndex = fileList.SelectedIndex;
 
             if (selectedIndex != -1)
