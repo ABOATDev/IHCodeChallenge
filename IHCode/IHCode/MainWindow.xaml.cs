@@ -229,6 +229,7 @@ namespace IHCode
                 codeBox.ShowLineNumbers = true;
 
                 SetCodeBoxContent(text);
+
                 this.Title = GetCurrentCodeFile().FullPath;
                 infoTextFile.Text = fileManager.InfoFile(path);
             }
