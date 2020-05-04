@@ -16,9 +16,9 @@
         <Grid.ColumnDefinitions>
 
             <ColumnDefinition Width="10"></ColumnDefinition>
-            <ColumnDefinition Width="75"></ColumnDefinition>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
             <ColumnDefinition Width="8"></ColumnDefinition>
-            <ColumnDefinition Width="75"></ColumnDefinition>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
             <ColumnDefinition Width="10"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="10"></ColumnDefinition>
@@ -35,9 +35,9 @@
 
         </Grid.RowDefinitions>
 
-        <Button x:Name="openButton" BorderThickness="0" Grid.Column="1" Grid.Row="1" Content="Open" Click="OpenFolder"></Button>
+        <Button x:Name="openButton" MinWidth="75" BorderThickness="0" Grid.Column="1" Grid.Row="1" Content="Open" Click="OpenFolder"></Button>
 
-        <Button x:Name="saveButton" BorderThickness="0" Grid.Column="3" Grid.Row="1" Content="Save" Click="SaveFile"></Button>
+        <Button x:Name="saveButton" MinWidth="75" BorderThickness="0" Grid.Column="3" Grid.Row="1" Content="Save" Click="SaveFile"></Button>
 
         <avalonEdit:TextEditor
         xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
