@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Highlighting;
+using ICSharpCode.AvalonEdit.Search;
 
 namespace IHCode
 {
@@ -28,7 +29,6 @@ namespace IHCode
 
         public MainWindow()
         {
-
             InitializeComponent();
 
             InitializeColors();
@@ -39,8 +39,10 @@ namespace IHCode
         public void InitializeColors()
         {
 
-            this.codeBox.Background = UsefulColors.DARK_BACKROUND.GetBrush();
-            this.codeBox.Foreground = UsefulColors.BRIGHT_CODE_COLOR.GetBrush();
+            //this.codeBox.Background = UsefulColors.DARK_BACKROUND.GetBrush();
+            //this.codeBox.Foreground = UsefulColors.BRIGHT_CODE_COLOR.GetBrush();
+            this.codeBox.Background = UsefulColors.BRIGHT_CODE_COLOR.GetBrush();
+            this.codeBox.Foreground = UsefulColors.DARKER_BACKGROUND.GetBrush();
             this.Background         = UsefulColors.DARKER_BACKGROUND.GetBrush();
             this.openButton.Background = UsefulColors.FILE_BUTTONS_COLOR.GetBrush();
             this.saveButton.Background = UsefulColors.FILE_BUTTONS_COLOR.GetBrush();
@@ -313,6 +315,10 @@ namespace IHCode
                 }
 
             }
+            else
+            {
+                Title = "New file";
+            }
         }
 
         private void ClearInfoTextAsync(int delay)
@@ -345,7 +351,23 @@ namespace IHCode
 
                 SaveFile(null, null);
 
-            } 
+            }
+
+            if (e.Key == Key.Up)
+            {
+                e.Handled = true;
+                try {fileList.SelectedIndex -= 1;}
+                catch {}
+
+                
+            }
+
+            if (e.Key == Key.Down)
+            {
+                e.Handled = true;
+                fileList.SelectedIndex += 1;
+            }
+
 
         }
 
