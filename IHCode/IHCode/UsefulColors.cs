@@ -10,8 +10,7 @@ namespace IHCode
     public static class UsefulColors
     {
 
-        public static Color DARK_BACKROUND { get; } = Colors.Transparent;
-
+        public static Color DARK_BACKROUND { get; } =  Colors.Transparent; 
         public static Color BRIGHT_CODE_COLOR { get; } = Color.FromRgb(228, 229, 225);
 
         public static Color DARKER_BACKGROUND { get; } = Color.FromRgb(35, 39, 42);

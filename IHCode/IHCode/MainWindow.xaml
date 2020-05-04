@@ -42,7 +42,7 @@
         <avalonEdit:TextEditor
         xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
         Name="codeBox" FontFamily="Consolas"
-        FontSize="11pt"
+        FontSize="13pt"
         Grid.Column="5"
         Grid.Row="1"
         Grid.RowSpan="2"
@@ -56,7 +56,7 @@
 
 
 
-        <ListBox x:Name="fileList" SelectionMode="Single" BorderThickness="0" Margin="0,10,0,0" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="3" SelectionChanged="OpenLoadedFile" Drop="fileList_Drop" AllowDrop="True">
+        <ListBox x:Name="fileList" SelectionMode="Single" BorderThickness="0" Margin="0,10,0,0" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="3" SelectionChanged="OpenLoadedFile" Drop="fileList_Drop" AllowDrop="True" PreviewKeyDown="PotentialSaveEvent">
             <ListBox.ContextMenu>
                 <ContextMenu Name="cm" Loaded="OnOpOnOpened">
                     <MenuItem  Header="Remove" Click="remove_Click"/>
