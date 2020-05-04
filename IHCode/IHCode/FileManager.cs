@@ -19,9 +19,7 @@ namespace IHCode
 
             if (Files.Where(f => f.FullPath == fileName).Any())
             {
-
                 return false;
-
             }
 
             Files.Add(new CodeFile(fileName));
@@ -44,9 +42,7 @@ namespace IHCode
 
             if (files.Length == 0)
             {
-
                 return false;
-
             }
 
             foreach (string fileName in files)

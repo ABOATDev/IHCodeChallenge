@@ -38,9 +38,7 @@ namespace IHCode
 
         public void InitializeColors()
         {
-
-            //this.codeBox.Background = UsefulColors.DARK_BACKROUND.GetBrush();
-            //this.codeBox.Foreground = UsefulColors.BRIGHT_CODE_COLOR.GetBrush();
+            //Attribution des couleurs
             this.codeBox.Background = UsefulColors.BRIGHT_CODE_COLOR.GetBrush();
             this.codeBox.Foreground = UsefulColors.DARKER_BACKGROUND.GetBrush();
             this.Background         = UsefulColors.DARKER_BACKGROUND.GetBrush();
@@ -130,7 +128,7 @@ namespace IHCode
 
         private void SaveFile(object sender, RoutedEventArgs e)
         {
-
+            //Sauvegardes du fichier
             CodeFile file = GetCurrentCodeFile();
 
             bool isNewFile = (file is null);
@@ -197,23 +195,15 @@ namespace IHCode
 
         private string GetCodeBoxContent()
         {
-
             TextDocument currentDocument = codeBox.Document;
-
             return currentDocument.Text;
-
         }
 
         private void SetCodeBoxContent(string text)
         {
-
             TextDocument futureDocument = new TextDocument();
-
             futureDocument.Text = text;
-
             this.codeBox.Document = futureDocument;
-
-
         }
 
         private Size MeasureTextSize(string text, FontFamily fontFamily, FontStyle fontStyle, FontWeight fontWeight, FontStretch fontStretch, double fontSize)
@@ -297,7 +287,7 @@ namespace IHCode
 
                 string path = file.FullPath;
                 string textfile = System.IO.File.ReadAllText(path);
-
+                //Gérer les fichier non-sauvegarder, signalisé par un "*" 
                 if (GetCodeBoxContent().ToString() != textfile)
                 {
                     if (Title.Substring(Title.Length - 1, 1) != "*")
@@ -317,6 +307,7 @@ namespace IHCode
             }
             else
             {
+                //Aucun fichier sélection mais le texte à changé 
                 Title = "New file";
             }
         }
@@ -339,40 +330,41 @@ namespace IHCode
 
             if (!Keyboard.IsKeyDown(Key.LeftCtrl))
             {
-
                 return;
-
             }
 
+            //Information eheh
+            if (e.Key == Key.I)
+            {
+                MessageBox.Show("Codé par YOGA & ABOAT !\nC# WPF\nConcours IH organisé par promise");
+            }
+
+
+            //Sauvegarder en CTRL S
             if (e.Key == Key.S)
             {
-
                 e.Handled = true;
-
                 SaveFile(null, null);
-
             }
-
-            if (e.Key == Key.Up)
-            {
-                e.Handled = true;
-                try {fileList.SelectedIndex -= 1;}
-                catch {}
-
-                
-            }
-
+            //Se déplacer dans les fichiers rapidement en CTRL + Flèches
             if (e.Key == Key.Down)
             {
                 e.Handled = true;
                 fileList.SelectedIndex += 1;
             }
-
+            if (e.Key == Key.Up)
+            {
+                e.Handled = true;
+                //Le try catch permettant de gérer les erreurs si on va en dessus de -1
+                try { fileList.SelectedIndex -= 1;}
+                catch {}
+            }
 
         }
 
         private void OnOpOnOpened(object sender, RoutedEventArgs e)
         {
+            //On ferme le contextmenubox si aucun fichier n'est sélectionné
             if (fileList.SelectedIndex == -1)
             {
                 cm.IsOpen = false;
@@ -404,34 +396,28 @@ namespace IHCode
 
             if (!newFileName.EndsWith(".js"))
             {
-
                 newFileName += ".js";
-
             }
 
             //Renommé le fichier
             if (fileManager.RenameFile(oldFileName, newFileName)) 
             {
-
                 fileManager.Files.RemoveAt(fileList.SelectedIndex);
 
                 fileManager.AddFile(newFileName);
 
-                DisplayInformation("File renamed.", InformationType.SUCCESS); 
-
+                DisplayInformation("File renamed.", InformationType.SUCCESS);
             }
             else
             {
                 DisplayInformation("Could not rename file.", InformationType.ERROR);
             }
-
             UpdateFileList();
-
         }
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            //Delete le fichier
+            //Supprimer le fichier
             if (fileManager.DeleteFile(GetCurrentCodeFile().FullPath))
             {
                 //Enlever de la liste
@@ -450,17 +436,15 @@ namespace IHCode
 
         private void fileList_Drop(object sender, DragEventArgs e)
         {
-           
+           //Gérer le glissé/déposé de fichier
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
 
             foreach (string file in files)
             {
-
+                //Le fichier est déjà dans la liste
                 if (!fileManager.AddFile(file))
                 {
-
                     DisplayInformation("File " + file + " already exists.", InformationType.WARNING);
-
                 }
 
             }
